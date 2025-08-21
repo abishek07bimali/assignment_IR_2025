@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Author Profile Link</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .author-link { color: #006621; text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>Test Author Profile Links</h1>
+    <p>Testing if the author profile link works:</p>
+    
+    <h2>Author: Glauco De Vita</h2>
+    <p>Profile URL: <a href="https://pureportal.coventry.ac.uk/en/persons/glauco-de-vita" target="_blank" class="author-link">
+        https://pureportal.coventry.ac.uk/en/persons/glauco-de-vita
+    </a></p>
+    
+    <p>Click the link above to test if it opens correctly.</p>
+    
+    <h2>Test with JavaScript</h2>
+    <button onclick="window.open('https://pureportal.coventry.ac.uk/en/persons/glauco-de-vita', '_blank')">
+        Open Profile in New Tab
+    </button>
+    
+    <script>
+        // Test if the URL is valid
+        const testUrl = 'https://pureportal.coventry.ac.uk/en/persons/glauco-de-vita';
+        console.log('Testing URL:', testUrl);
+        
+        // Check if URL is valid
+        try {
+            const url = new URL(testUrl);
+            console.log('URL is valid:', url.href);
+        } catch (e) {
+            console.error('Invalid URL:', e);
+        }
+    </script>
+</body>
+</html>

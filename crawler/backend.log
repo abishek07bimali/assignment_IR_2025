@@ -1,0 +1,60 @@
+INFO:search_engine_backend:Loaded 771 publications
+INFO:search_engine_backend:Built TF-IDF index with shape (771, 10000)
+INFO:search_engine_backend:Built inverted indices: 798 authors, 30 years, 9715 keywords
+INFO:     Started server process [101396]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:46424 - "GET /stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60662 - "GET /search?q=Test%20Publication%20Author%20Profile&limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53118 - "GET /stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53130 - "GET /authors HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53118 - "GET /stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53130 - "GET /authors HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53130 - "GET /search?q=Crowdfunding&limit=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47542 - "GET /search?q=Thorpe&limit=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47542 - "GET /search?q=Thorpe&limit=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59542 - "GET /search?q=Thorpe&limit=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59542 - "GET /search?q=Thorpe&limit=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59542 - "GET /search?q=Thorpe&limit=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32936 - "GET /search?q=Female+political+empowerment+and+green+finance&limit=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35582 - "GET /search?q=Fiscal+Consolidation&limit=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59282 - "GET /stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59284 - "GET /authors HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59282 - "GET /authors HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59290 - "GET /stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39790 - "GET /search?q=Fiscal+Consolidation+&limit=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46630 - "GET /search?q=Glauco+De+Vita&limit=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33178 - "GET /search?q=Fiscal+Consolidation+&limit=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58488 - "GET /stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58492 - "GET /authors HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58488 - "GET /authors HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58500 - "GET /stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58492 - "GET /search?q=Glauco+De+Vita&limit=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54300 - "GET /stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54312 - "GET /authors HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54300 - "GET /stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54312 - "GET /authors HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54312 - "GET /search?q=Glauco+De+Vita&limit=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41430 - "GET /search?q=Fiscal+Consolidation&limit=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49752 - "GET /stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49754 - "GET /authors HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49752 - "GET /stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49754 - "GET /authors HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49754 - "GET /stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49752 - "GET /authors HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49754 - "GET /stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49752 - "GET /authors HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56946 - "GET /stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56960 - "GET /authors HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56972 - "GET /stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56978 - "GET /authors HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57532 - "GET /stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57538 - "GET /authors HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57532 - "GET /stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57538 - "GET /authors HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52706 - "GET /search?q=Glauco%20De%20Vita&limit=1 HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [101396]

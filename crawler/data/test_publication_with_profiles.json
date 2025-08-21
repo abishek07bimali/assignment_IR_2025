@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Test Publication with Author Profiles",
+    "link": "https://pureportal.coventry.ac.uk/en/publications/test-publication",
+    "authors": [
+      "John Doe",
+      "Jane Smith",
+      "Bob Johnson"
+    ],
+    "author_profiles": {
+      "John Doe": "https://pureportal.coventry.ac.uk/en/persons/john-doe",
+      "Jane Smith": "https://pureportal.coventry.ac.uk/en/persons/jane-smith"
+    },
+    "published_date": "15 Jan 2025",
+    "abstract": "This is a test publication to demonstrate the author profile links feature. When author profile links are available, they will be displayed as clickable links with a small link icon."
+  }
+]

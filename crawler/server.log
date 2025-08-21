@@ -1,0 +1,4 @@
+INFO:__main__:Loaded 770 publications
+INFO:__main__:Built TF-IDF index with shape (770, 10000)
+INFO:__main__:Built inverted indices: 795 authors, 30 years, 9713 keywords
+WARNING:  You must pass the application as an import string to enable 'reload' or 'workers'.
