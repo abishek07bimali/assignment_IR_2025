@@ -4,43 +4,43 @@
     "text": "Election results announced",
     "expected": "politics",
     "nb_prediction": "politics",
-    "nb_confidence": 0.6673338832100515,
+    "nb_confidence": 0.5552741410959048,
     "nb_correct": true,
     "lr_prediction": "politics",
-    "lr_confidence": 0.41559122498315404,
+    "lr_confidence": 0.38216601903099756,
     "lr_correct": true
   },
   {
     "test_type": "Very Short (1-3 words)",
     "text": "Stock crash",
     "expected": "business",
-    "nb_prediction": "business",
-    "nb_confidence": 0.6195165702452164,
-    "nb_correct": true,
-    "lr_prediction": "business",
-    "lr_confidence": 0.3746603347759054,
-    "lr_correct": true
+    "nb_prediction": "health",
+    "nb_confidence": 0.3375,
+    "nb_correct": false,
+    "lr_prediction": "politics",
+    "lr_confidence": 0.3464329565136602,
+    "lr_correct": false
   },
   {
     "test_type": "Very Short (1-3 words)",
     "text": "Vaccine approved",
     "expected": "health",
-    "nb_prediction": "business",
-    "nb_confidence": 0.3333333333333333,
-    "nb_correct": false,
-    "lr_prediction": "business",
-    "lr_confidence": 0.33740011177731233,
+    "nb_prediction": "health",
+    "nb_confidence": 0.3375,
+    "nb_correct": true,
+    "lr_prediction": "politics",
+    "lr_confidence": 0.3464329565136602,
     "lr_correct": false
   },
   {
     "test_type": "Very Short (1-3 words)",
     "text": "President speaks",
     "expected": "politics",
-    "nb_prediction": "politics",
-    "nb_confidence": 0.7303077078427472,
-    "nb_correct": true,
+    "nb_prediction": "health",
+    "nb_confidence": 0.3375,
+    "nb_correct": false,
     "lr_prediction": "politics",
-    "lr_confidence": 0.40335208478795137,
+    "lr_confidence": 0.3464329565136602,
     "lr_correct": true
   },
   {
@@ -48,10 +48,10 @@
     "text": "Market boom",
     "expected": "business",
     "nb_prediction": "business",
-    "nb_confidence": 0.8315385966921823,
+    "nb_confidence": 0.7393458513122738,
     "nb_correct": true,
     "lr_prediction": "business",
-    "lr_confidence": 0.48721634235690015,
+    "lr_confidence": 0.4283763571766018,
     "lr_correct": true
   },
   {
@@ -59,10 +59,10 @@
     "text": "Cancer cure",
     "expected": "health",
     "nb_prediction": "health",
-    "nb_confidence": 0.6499825345088329,
+    "nb_confidence": 0.6664681597591539,
     "nb_correct": true,
     "lr_prediction": "health",
-    "lr_confidence": 0.3734359179152871,
+    "lr_confidence": 0.37497522090142227,
     "lr_correct": true
   },
   {
@@ -70,32 +70,32 @@
     "text": "Parliament debates immigration policy",
     "expected": "politics",
     "nb_prediction": "politics",
-    "nb_confidence": 0.8534802490885129,
+    "nb_confidence": 0.7757321768963583,
     "nb_correct": true,
     "lr_prediction": "politics",
-    "lr_confidence": 0.4502013646252597,
+    "lr_confidence": 0.44184505295796134,
     "lr_correct": true
   },
   {
     "test_type": "Short without stopwords",
     "text": "Amazon expands logistics network",
     "expected": "business",
-    "nb_prediction": "business",
-    "nb_confidence": 0.9068364096903859,
-    "nb_correct": true,
-    "lr_prediction": "business",
-    "lr_confidence": 0.4472628381579993,
-    "lr_correct": true
+    "nb_prediction": "health",
+    "nb_confidence": 0.34095156571737917,
+    "nb_correct": false,
+    "lr_prediction": "politics",
+    "lr_confidence": 0.3464329565136602,
+    "lr_correct": false
   },
   {
     "test_type": "Short without stopwords",
     "text": "Diabetes research breakthrough announced",
     "expected": "health",
     "nb_prediction": "health",
-    "nb_confidence": 0.5367323534580676,
+    "nb_confidence": 0.6976824315012563,
     "nb_correct": true,
     "lr_prediction": "health",
-    "lr_confidence": 0.35453164671041365,
+    "lr_confidence": 0.3917222611229082,
     "lr_correct": true
   },
   {
@@ -103,10 +103,10 @@
     "text": "Senator proposes tax reform",
     "expected": "politics",
     "nb_prediction": "politics",
-    "nb_confidence": 0.6200423478662099,
+    "nb_confidence": 0.7019967002381413,
     "nb_correct": true,
     "lr_prediction": "politics",
-    "lr_confidence": 0.4057251400059308,
+    "lr_confidence": 0.4169349013989957,
     "lr_correct": true
   },
   {
@@ -114,21 +114,21 @@
     "text": "Startup raises million funding",
     "expected": "business",
     "nb_prediction": "business",
-    "nb_confidence": 0.5919817828485573,
+    "nb_confidence": 0.4840448798946869,
     "nb_correct": true,
-    "lr_prediction": "business",
-    "lr_confidence": 0.3741152242700795,
-    "lr_correct": true
+    "lr_prediction": "health",
+    "lr_confidence": 0.34955355790985654,
+    "lr_correct": false
   },
   {
     "test_type": "Short without stopwords",
     "text": "Mental health awareness campaign",
     "expected": "health",
     "nb_prediction": "health",
-    "nb_confidence": 0.6856388178519869,
+    "nb_confidence": 0.9484542068328822,
     "nb_correct": true,
     "lr_prediction": "health",
-    "lr_confidence": 0.4261401807645638,
+    "lr_confidence": 0.5281811831201794,
     "lr_correct": true
   },
   {
@@ -136,10 +136,10 @@
     "text": "The government has been working on a new policy that will affect how citizens vote in the upcoming e",
     "expected": "politics",
     "nb_prediction": "politics",
-    "nb_confidence": 0.6827540440148671,
+    "nb_confidence": 0.733919079464564,
     "nb_correct": true,
     "lr_prediction": "politics",
-    "lr_confidence": 0.43976126552845035,
+    "lr_confidence": 0.4322139408380889,
     "lr_correct": true
   },
   {
@@ -147,10 +147,10 @@
     "text": "A major corporation is planning to acquire several smaller companies in order to expand its market s",
     "expected": "business",
     "nb_prediction": "business",
-    "nb_confidence": 0.6931614970331769,
+    "nb_confidence": 0.5992008991825554,
     "nb_correct": true,
     "lr_prediction": "business",
-    "lr_confidence": 0.41443862816058147,
+    "lr_confidence": 0.4016658731576344,
     "lr_correct": true
   },
   {
@@ -158,10 +158,10 @@
     "text": "Doctors are recommending that people should get regular checkups to prevent serious health condition",
     "expected": "health",
     "nb_prediction": "health",
-    "nb_confidence": 0.9071724854162654,
+    "nb_confidence": 0.9100915211330065,
     "nb_correct": true,
     "lr_prediction": "health",
-    "lr_confidence": 0.6253667756558945,
+    "lr_confidence": 0.480948300769881,
     "lr_correct": true
   },
   {
@@ -169,10 +169,10 @@
     "text": "The international summit brought together world leaders from over 50 nations to discuss pressing glo",
     "expected": "politics",
     "nb_prediction": "politics",
-    "nb_confidence": 0.8869334552913907,
+    "nb_confidence": 0.8076764214490831,
     "nb_correct": true,
     "lr_prediction": "politics",
-    "lr_confidence": 0.44882273410887613,
+    "lr_confidence": 0.419277018309169,
     "lr_correct": true
   },
   {
@@ -180,10 +180,10 @@
     "text": "The quarterly earnings report exceeded analyst expectations with revenue growth of 25% year-over-yea",
     "expected": "business",
     "nb_prediction": "business",
-    "nb_confidence": 0.9442603965620141,
+    "nb_confidence": 0.6314780027860736,
     "nb_correct": true,
     "lr_prediction": "business",
-    "lr_confidence": 0.471088440939277,
+    "lr_confidence": 0.3681676711902936,
     "lr_correct": true
   },
   {
@@ -191,10 +191,10 @@
     "text": "A comprehensive longitudinal study involving 10,000 participants over a 15-year period has revealed ",
     "expected": "health",
     "nb_prediction": "health",
-    "nb_confidence": 0.9570575582965991,
+    "nb_confidence": 0.964309707610842,
     "nb_correct": true,
     "lr_prediction": "health",
-    "lr_confidence": 0.503494145684174,
+    "lr_confidence": 0.4703553983138845,
     "lr_correct": true
   },
   {
@@ -202,10 +202,10 @@
     "text": "Government allocates budget for hospital construction",
     "expected": "health/politics",
     "nb_prediction": "politics",
-    "nb_confidence": 0.6182207115211338,
+    "nb_confidence": 0.5095802072357665,
     "nb_correct": true,
     "lr_prediction": "politics",
-    "lr_confidence": 0.39346771248494206,
+    "lr_confidence": 0.4053531834622978,
     "lr_correct": true
   },
   {
@@ -213,10 +213,10 @@
     "text": "Pharmaceutical company faces regulatory investigation",
     "expected": "business/health",
     "nb_prediction": "business",
-    "nb_confidence": 0.7852233351501173,
+    "nb_confidence": 0.7564606717484497,
     "nb_correct": true,
     "lr_prediction": "business",
-    "lr_confidence": 0.4134348865877577,
+    "lr_confidence": 0.42587025702090103,
     "lr_correct": true
   },
   {
@@ -224,10 +224,10 @@
     "text": "Election outcome affects stock market performance",
     "expected": "politics/business",
     "nb_prediction": "business",
-    "nb_confidence": 0.6817470209002663,
+    "nb_confidence": 0.5613949118442949,
     "nb_correct": true,
     "lr_prediction": "business",
-    "lr_confidence": 0.398532791109721,
+    "lr_confidence": 0.368192858466752,
     "lr_correct": true
   },
   {
@@ -235,21 +235,21 @@
     "text": "Public health emergency declared by officials",
     "expected": "health/politics",
     "nb_prediction": "health",
-    "nb_confidence": 0.8623385482803037,
+    "nb_confidence": 0.8084732695768783,
     "nb_correct": true,
     "lr_prediction": "health",
-    "lr_confidence": 0.4954668120192328,
+    "lr_confidence": 0.4745017764295482,
     "lr_correct": true
   },
   {
     "test_type": "Ambiguous/Cross-domain",
     "text": "Insurance industry lobbies for healthcare reform",
     "expected": "business/health",
-    "nb_prediction": "politics",
-    "nb_confidence": 0.4149369624228452,
-    "nb_correct": false,
-    "lr_prediction": "health",
-    "lr_confidence": 0.34269065847409913,
+    "nb_prediction": "business",
+    "nb_confidence": 0.660053786866892,
+    "nb_correct": true,
+    "lr_prediction": "business",
+    "lr_confidence": 0.3673801180768454,
     "lr_correct": true
   },
   {
@@ -257,10 +257,10 @@
     "text": "Economic downturn impacts mental health services",
     "expected": "business/health",
     "nb_prediction": "health",
-    "nb_confidence": 0.8342482954577679,
+    "nb_confidence": 0.9221472574586185,
     "nb_correct": true,
     "lr_prediction": "health",
-    "lr_confidence": 0.46518277883932846,
+    "lr_confidence": 0.5391661090577704,
     "lr_correct": true
   },
   {
@@ -268,10 +268,10 @@
     "text": "Constitutional amendment requires two-thirds majority in both houses of legislature",
     "expected": "politics",
     "nb_prediction": "politics",
-    "nb_confidence": 0.8955301334043697,
+    "nb_confidence": 0.7062057858130811,
     "nb_correct": true,
     "lr_prediction": "politics",
-    "lr_confidence": 0.42570639426408213,
+    "lr_confidence": 0.39416986800614556,
     "lr_correct": true
   },
   {
@@ -279,10 +279,10 @@
     "text": "Leveraged buyout financed through combination of equity and debt instruments",
     "expected": "business",
     "nb_prediction": "business",
-    "nb_confidence": 0.6421112831646912,
+    "nb_confidence": 0.6247796780513858,
     "nb_correct": true,
     "lr_prediction": "business",
-    "lr_confidence": 0.3786251138092898,
+    "lr_confidence": 0.349233389915333,
     "lr_correct": true
   },
   {
@@ -290,32 +290,32 @@
     "text": "Randomized controlled trial demonstrates efficacy of novel therapeutic intervention",
     "expected": "health",
     "nb_prediction": "health",
-    "nb_confidence": 0.8070343534721605,
+    "nb_confidence": 0.7202057939706198,
     "nb_correct": true,
     "lr_prediction": "health",
-    "lr_confidence": 0.4095564667816504,
+    "lr_confidence": 0.3843750760293524,
     "lr_correct": true
   },
   {
     "test_type": "Technical/Specialized",
     "text": "Geopolitical tensions escalate following territorial disputes in contested region",
     "expected": "politics",
-    "nb_prediction": "business",
-    "nb_confidence": 0.49589839492005167,
-    "nb_correct": false,
+    "nb_prediction": "politics",
+    "nb_confidence": 0.6400314579827704,
+    "nb_correct": true,
     "lr_prediction": "politics",
-    "lr_confidence": 0.3642709134740007,
+    "lr_confidence": 0.4033230514192398,
     "lr_correct": true
   },
   {
     "test_type": "Technical/Specialized",
     "text": "Quantitative easing measures implemented to stimulate economic growth",
     "expected": "business",
-    "nb_prediction": "business",
-    "nb_confidence": 0.39511292520941493,
-    "nb_correct": true,
+    "nb_prediction": "politics",
+    "nb_confidence": 0.5138455128121818,
+    "nb_correct": false,
     "lr_prediction": "politics",
-    "lr_confidence": 0.3479335873744011,
+    "lr_confidence": 0.3737864957725087,
     "lr_correct": false
   },
   {
@@ -323,10 +323,10 @@
     "text": "Epidemiological surveillance systems detect emerging infectious disease patterns",
     "expected": "health",
     "nb_prediction": "health",
-    "nb_confidence": 0.8521334594666335,
+    "nb_confidence": 0.6827214733282554,
     "nb_correct": true,
     "lr_prediction": "health",
-    "lr_confidence": 0.44321747369123315,
+    "lr_confidence": 0.3870461242016674,
     "lr_correct": true
   }
 ]
