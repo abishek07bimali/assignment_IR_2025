@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional CV Builder</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .form-section {
+            flex: 1;
+            min-width: 350px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .cv-preview {
+            flex: 1;
+            min-width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: #555;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .add-btn {
+            background: #4CAF50;
+            padding: 8px 16px;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .remove-btn {
+            background: #f44336;
+            padding: 6px 12px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .dynamic-section {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .dynamic-section h3 {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        /* CV Preview Styles - ATS Optimized */
+        #cvContent {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.2;
+            color: #333;
+            font-size: 10px;
+            padding: 15px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Prevent content breaks */
+        #cvContent .work-item,
+        #cvContent .project-item,
+        #cvContent .cert-item {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        
+        #cvContent .section {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        
+        #cvContent ul {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        
+        /* Ensure headers stay with content */
+        #cvContent h2,
+        #cvContent h3 {
+            page-break-after: avoid;
+            break-after: avoid;
+        }
+        
+        /* Professional spacing */
+        #cvContent .section + .section {
+            margin-top: 12px;
+        }
+
+        #cvContent h2 {
+            color: #2c3e50;
+            border-bottom: 1px solid #3498db;
+            padding-bottom: 2px;
+            margin: 8px 0 5px 0;
+            font-size: 12px;
+            font-weight: bold;
+            page-break-after: avoid;
+        }
+
+        #cvContent h3 {
+            color: #34495e;
+            margin: 5px 0 3px 0;
+            font-size: 10px;
+            font-weight: bold;
+            page-break-after: avoid;
+        }
+
+        #cvContent .header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        #cvContent .header h1 {
+            color: #2c3e50;
+            margin-bottom: 3px;
+            font-size: 18px;
+        }
+
+        #cvContent .contact-info {
+            color: #7f8c8d;
+            font-size: 9px;
+        }
+
+        #cvContent .section {
+            margin-bottom: 10px;
+            page-break-inside: avoid;
+        }
+
+        #cvContent ul {
+            padding-left: 15px;
+            margin: 2px 0;
+        }
+
+        #cvContent li {
+            margin-bottom: 1px;
+            font-size: 9px;
+            line-height: 1.2;
+        }
+
+        #cvContent p {
+            font-size: 9px;
+            margin: 2px 0;
+            line-height: 1.2;
+        }
+
+        #cvContent strong {
+            font-size: 9px;
+        }
+
+        #cvContent span {
+            font-size: 9px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 5px;
+        }
+
+        .skill-category {
+            background: #f8f9fa;
+            padding: 4px 6px;
+            border-radius: 3px;
+            font-size: 9px;
+            line-height: 1.2;
+            page-break-inside: avoid;
+        }
+
+        .skill-category strong {
+            font-weight: bold;
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        /* Floating Action Buttons */
+        .floating-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+        
+        .floating-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: visible;
+        }
+        
+        .floating-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .floating-btn.generate {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .floating-btn.download {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+        
+        .floating-btn .tooltip {
+            position: absolute;
+            right: 70px;
+            background: #333;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 14px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        
+        .floating-btn:hover .tooltip {
+            opacity: 1;
+        }
+        
+        .floating-btn .tooltip::after {
+            content: '';
+            position: absolute;
+            right: -5px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-left: 5px solid #333;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .form-section {
+                display: none;
+            }
+            .cv-preview {
+                box-shadow: none;
+                padding: 0;
+            }
+            .floating-buttons {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .form-section, .cv-preview {
+                min-width: 100%;
+            }
+            .floating-buttons {
+                bottom: 20px;
+                right: 20px;
+            }
+            .floating-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 18px;
+            }
+            .floating-btn .tooltip {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-section">
+            <h1>CV Builder Form</h1>
+            
+            <!-- Customization Controls -->
+            <div style="background: #f0f4f8; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <h3 style="color: #2c3e50; margin-bottom: 15px; font-size: 16px;">CV Customization Options</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <label for="colorTheme">Color Theme</label>
+                        <select id="colorTheme" onchange="applyCustomizations()">
+                            <option value="blue">Professional Blue</option>
+                            <option value="green">Modern Green</option>
+                            <option value="purple">Creative Purple</option>
+                            <option value="red">Bold Red</option>
+                            <option value="gray">Classic Gray</option>
+                            <option value="teal">Ocean Teal</option>
+                            <option value="yellow">Ocean </option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <label for="compactness">Compactness Level</label>
+                        <select id="compactness" onchange="applyCustomizations()">
+                            <option value="normal">Normal</option>
+                            <option value="compact" selected>Compact</option>
+                            <option value="very-compact">Very Compact</option>
+                            <option value="spacious">Spacious</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <label for="fontSize">Font Size</label>
+                        <select id="fontSize" onchange="applyCustomizations()">
+                            <option value="xsmall">Extra Small (8px)</option>
+                            <option value="small">Small (9px)</option>
+                            <option value="medium" selected>Medium (10px)</option>
+                            <option value="large">Large (11px)</option>
+                            <option value="xlarge">Extra Large (12px)</option>
+                            <option value="xxlarge">XX Large (14px)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <label for="customFontSize">Custom Font Size</label>
+                        <input type="range" id="customFontSize" min="7" max="16" value="10" onchange="updateCustomFontSize()" style="width: 100%;">
+                        <div style="display: flex; justify-content: space-between; font-size: 11px; color: #666;">
+                            <span>7px</span>
+                            <span id="fontSizeValue">10px</span>
+                            <span>16px</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <label for="fontFamily">Font Family</label>
+                        <select id="fontFamily" onchange="applyCustomizations()">
+                            <option value="arial">Arial (Sans-serif)</option>
+                            <option value="georgia">Georgia (Serif)</option>
+                            <option value="times">Times New Roman</option>
+                            <option value="helvetica">Helvetica</option>
+                            <option value="calibri">Calibri</option>
+                            <option value="verdana">Verdana</option>
+                            <option value="roboto">Roboto</option>
+                            <option value="montserrat">Montserrat</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <form id="cvForm">
+                <!-- Personal Information -->
+                <div class="form-group">
+                    <label for="fullName">Full Name *</label>
+                    <input type="text" id="fullName" name="fullName" value="Abishek Bimali" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Location *</label>
+                    <input type="text" id="location" name="location" value="Kathmandu, Nepal" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" value="abi0shekbimali@gmail.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="github">GitHub URL</label>
+                    <input type="url" id="github" name="github" value="https://github.com/abishek07bimali">
+                </div>
+
+                <div class="form-group">
+                    <label for="profileSummary">Profile Summary *</label>
+                    <textarea id="profileSummary" name="profileSummary" required>Experienced Full-Stack Developer with 3+ years of expertise in building scalable web applications using modern technologies. Proficient in React, TypeScript, Node.js, and various database systems. Passionate about teaching and mentoring, with 1 year of experience instructing MERN stack development. Seeking challenging opportunities to leverage technical skills and contribute to innovative projects.</textarea>
+                </div>
+
+                <!-- Skills -->
+                <div class="form-group">
+                    <label for="frontendSkills">Frontend Skills *</label>
+                    <input type="text" id="frontendSkills" name="frontendSkills" value="React, TypeScript, HTML, CSS, JavaScript" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="backendSkills">Backend Skills *</label>
+                    <input type="text" id="backendSkills" name="backendSkills" value="Node.js, Express, REST APIs" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="databaseSkills">Database Skills *</label>
+                    <input type="text" id="databaseSkills" name="databaseSkills" value="MongoDB, PostgreSQL, MySQL, SQL" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="programmingLanguages">Programming Languages *</label>
+                    <input type="text" id="programmingLanguages" name="programmingLanguages" value="JavaScript, TypeScript, Python, Java" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="otherSkills">Other Skills</label>
+                    <input type="text" id="otherSkills" name="otherSkills" value="Git, Docker, Agile/Scrum, CI/CD">
+                </div>
+
+                <!-- Work Experience -->
+                <div id="workExperienceSection">
+                    <h3>Work Experience</h3>
+                    <div class="dynamic-section work-experience-item">
+                        <div class="form-group">
+                            <label>Job Title</label>
+                            <input type="text" name="jobTitle[]" value="Senior Software Developer">
+                        </div>
+                        <div class="form-group">
+                            <label>Company Name</label>
+                            <input type="text" name="companyName[]" value="Tech Solutions Inc.">
+                        </div>
+                        <div class="form-group">
+                            <label>Duration</label>
+                            <input type="text" name="duration[]" value="Jan 2023 - Present">
+                        </div>
+                        <div class="form-group">
+                            <label>Responsibilities (separate with semicolon)</label>
+                            <textarea name="responsibilities[]">Developed and maintained React-based web applications; Implemented RESTful APIs using Node.js and Express; Collaborated with cross-functional teams using Agile methodology; Mentored junior developers and conducted code reviews; Optimized application performance resulting in 40% faster load times</textarea>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="add-btn" onclick="addWorkExperience()">Add Work Experience</button>
+
+                <!-- Freelance Projects -->
+                <div id="freelanceSection">
+                    <h3>Freelance Projects</h3>
+                    <div class="dynamic-section freelance-item">
+                        <div class="form-group">
+                            <label>Project Name</label>
+                            <input type="text" name="projectName[]" value="E-commerce Platform">
+                        </div>
+                        <div class="form-group">
+                            <label>Technologies Used</label>
+                            <input type="text" name="techUsed[]" value="React, Node.js, MongoDB, Stripe API">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <input type="text" name="projectDesc[]" value="Built a full-featured e-commerce platform with payment integration and admin dashboard">
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="add-btn" onclick="addFreelanceProject()">Add Freelance Project</button>
+
+                <!-- Teaching Experience -->
+                <div class="form-group">
+                    <label for="teachingInstitute">Teaching Institute</label>
+                    <input type="text" id="teachingInstitute" name="teachingInstitute" value="Code Academy Nepal">
+                </div>
+
+                <div class="form-group">
+                    <label for="teachingDuration">Teaching Duration</label>
+                    <input type="text" id="teachingDuration" name="teachingDuration" value="Jan 2023 - Dec 2023">
+                </div>
+
+                <!-- Personal Projects -->
+                <div id="personalProjectsSection">
+                    <h3>Personal Projects</h3>
+                    <div class="dynamic-section personal-project-item">
+                        <div class="form-group">
+                            <label>Project Name</label>
+                            <input type="text" name="personalProjectName[]" value="Task Management System">
+                        </div>
+                        <div class="form-group">
+                            <label>Stack Used</label>
+                            <input type="text" name="stackUsed[]" value="MERN Stack, Redux, JWT">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <input type="text" name="personalProjectDesc[]" value="A collaborative task management system with real-time updates and team features">
+                        </div>
+                        <div class="form-group">
+                            <label>GitHub URL (optional)</label>
+                            <input type="url" name="projectGithub[]" value="https://github.com/abishek07bimali/task-manager">
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="add-btn" onclick="addPersonalProject()">Add Personal Project</button>
+
+                <!-- Education -->
+                <div class="form-group">
+                    <label for="degree">Degree *</label>
+                    <input type="text" id="degree" name="degree" value="Bachelor of Technology in Computer Science" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="university">University *</label>
+                    <input type="text" id="university" name="university" value="Tribhuvan University" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="graduationYear">Year of Graduation *</label>
+                    <input type="text" id="graduationYear" name="graduationYear" value="2021" required>
+                </div>
+
+                <!-- Certifications -->
+                <div id="certificationsSection">
+                    <h3>Certifications (Optional)</h3>
+                    <div class="dynamic-section certification-item">
+                        <div class="form-group">
+                            <label>Certification Name</label>
+                            <input type="text" name="certName[]" value="AWS Certified Developer">
+                        </div>
+                        <div class="form-group">
+                            <label>Issuing Organization</label>
+                            <input type="text" name="certOrg[]" value="Amazon Web Services">
+                        </div>
+                        <div class="form-group">
+                            <label>Year</label>
+                            <input type="text" name="certYear[]" value="2023">
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="add-btn" onclick="addCertification()">Add Certification</button>
+
+                <!-- Languages -->
+                <div class="form-group">
+                    <label for="languages">Languages</label>
+                    <input type="text" id="languages" name="languages" value="English (Fluent), Nepali (Native)">
+                </div>
+
+            </form>
+        </div>
+
+        <div class="cv-preview">
+            <h1>CV Preview</h1>
+            <div id="cvContent">
+                <div class="header">
+                    <h1>Your Name</h1>
+                    <div class="contact-info">
+                        Location | Email | GitHub
+                    </div>
+                </div>
+                <p style="text-align: center; color: #666; padding: 20px;">
+                    Fill in the form to generate your professional CV
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Floating Action Buttons -->
+    <div class="floating-buttons">
+        <button type="button" class="floating-btn generate" onclick="generateCV()">
+            <span class="tooltip">Generate CV</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+        </button>
+        <button type="button" class="floating-btn download" onclick="savePDF()">
+            <span class="tooltip">Download PDF</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+        </button>
+    </div>
+
+    <script>
+        // Update custom font size display
+        function updateCustomFontSize() {
+            const slider = document.getElementById('customFontSize');
+            const value = slider.value;
+            document.getElementById('fontSizeValue').textContent = value + 'px';
+            
+            // Set fontSize select to 'custom' (we'll handle this in applyCustomizations)
+            document.getElementById('fontSize').value = 'custom';
+            applyCustomizations();
+        }
+        
+        // Apply customizations function
+        function applyCustomizations() {
+            const colorTheme = document.getElementById('colorTheme').value;
+            const compactness = document.getElementById('compactness').value;
+            const fontSize = document.getElementById('fontSize').value;
+            const fontFamily = document.getElementById('fontFamily').value;
+            
+            const cvContent = document.getElementById('cvContent');
+            
+            // Color themes
+            const colorThemes = {
+                blue: { primary: '#2c3e50', secondary: '#3498db', text: '#333' },
+                green: { primary: '#27ae60', secondary: '#2ecc71', text: '#2c3e50' },
+                purple: { primary: '#8e44ad', secondary: '#9b59b6', text: '#2c3e50' },
+                red: { primary: '#c0392b', secondary: '#e74c3c', text: '#2c3e50' },
+                gray: { primary: '#34495e', secondary: '#7f8c8d', text: '#2c3e50' },
+                teal: { primary: '#16a085', secondary: '#1abc9c', text: '#2c3e50' },
+                                yellow: { primary: '#16a065', secondary: '#1abc9c', text: '#2c3e50' }
+
+            };
+            
+            // Font families
+            const fontFamilies = {
+                arial: "'Arial', sans-serif",
+                georgia: "'Georgia', serif",
+                times: "'Times New Roman', serif",
+                helvetica: "'Helvetica', sans-serif",
+                calibri: "'Calibri', sans-serif",
+                verdana: "'Verdana', sans-serif",
+                roboto: "'Roboto', sans-serif",
+                montserrat: "'Montserrat', sans-serif"
+            };
+            
+            // Font sizes
+            let fontSizes = {
+                xsmall: { base: 8, h1: 14, h2: 10, h3: 8 },
+                small: { base: 9, h1: 16, h2: 11, h3: 9 },
+                medium: { base: 10, h1: 18, h2: 12, h3: 10 },
+                large: { base: 11, h1: 20, h2: 14, h3: 12 },
+                xlarge: { base: 12, h1: 24, h2: 16, h3: 14 },
+                xxlarge: { base: 14, h1: 28, h2: 18, h3: 16 }
+            };
+            
+            // Handle custom font size
+            if (fontSize === 'custom') {
+                const customSize = parseInt(document.getElementById('customFontSize').value);
+                fontSizes.custom = {
+                    base: customSize,
+                    h1: Math.round(customSize * 1.8),
+                    h2: Math.round(customSize * 1.2),
+                    h3: customSize
+                };
+            }
+            
+            // Compactness settings
+            const compactnessSettings = {
+                'very-compact': { lineHeight: 1.1, sectionMargin: 6, itemMargin: 3, padding: '10px 15px' },
+                'compact': { lineHeight: 1.2, sectionMargin: 10, itemMargin: 5, padding: '15px 20px' },
+                'normal': { lineHeight: 1.4, sectionMargin: 15, itemMargin: 8, padding: '20px 25px' },
+                'spacious': { lineHeight: 1.6, sectionMargin: 20, itemMargin: 12, padding: '25px 30px' }
+            };
+            
+            const theme = colorThemes[colorTheme];
+            const font = fontFamilies[fontFamily];
+            const size = fontSizes[fontSize];
+            const compact = compactnessSettings[compactness];
+            
+            // Apply styles dynamically
+            const style = document.createElement('style');
+            style.id = 'dynamic-cv-styles';
+            
+            // Remove previous dynamic styles if exists
+            const existingStyle = document.getElementById('dynamic-cv-styles');
+            if (existingStyle) {
+                existingStyle.remove();
+            }
+            
+            style.innerHTML = `
+                #cvContent {
+                    font-family: ${font} !important;
+                    line-height: ${compact.lineHeight} !important;
+                    padding: ${compact.padding} !important;
+                    color: ${theme.text} !important;
+                }
+                
+                #cvContent h1 {
+                    color: ${theme.primary} !important;
+                    font-size: ${size.h1}px !important;
+                }
+                
+                #cvContent h2 {
+                    color: ${theme.primary} !important;
+                    border-bottom-color: ${theme.secondary} !important;
+                    font-size: ${size.h2}px !important;
+                    margin: ${compact.sectionMargin}px 0 ${compact.itemMargin}px 0 !important;
+                }
+                
+                #cvContent h3 {
+                    color: ${theme.primary} !important;
+                    font-size: ${size.h3}px !important;
+                    margin: ${compact.itemMargin}px 0 ${compact.itemMargin/2}px 0 !important;
+                }
+                
+                #cvContent .contact-info {
+                    font-size: ${size.base - 1}px !important;
+                }
+                
+                #cvContent p, #cvContent li, #cvContent span, #cvContent strong {
+                    font-size: ${size.base}px !important;
+                    line-height: ${compact.lineHeight} !important;
+                }
+                
+                #cvContent .section {
+                    margin-bottom: ${compact.sectionMargin}px !important;
+                }
+                
+                #cvContent ul {
+                    margin: ${compact.itemMargin/2}px 0 !important;
+                }
+                
+                #cvContent li {
+                    margin-bottom: ${compact.itemMargin/3}px !important;
+                }
+                
+                #cvContent a {
+                    color: ${theme.secondary} !important;
+                }
+                
+                .skill-category {
+                    background: ${theme.secondary}15 !important;
+                    border-left: 3px solid ${theme.secondary} !important;
+                }
+                
+                #cvContent .header {
+                    margin-bottom: ${compact.sectionMargin}px !important;
+                }
+                
+                .work-item, .project-item, .cert-item {
+                    margin-bottom: ${compact.itemMargin}px !important;
+                }
+                
+                .work-item h3, .project-item strong {
+                    margin-bottom: ${compact.itemMargin/2}px !important;
+                }
+            `;
+            
+            document.head.appendChild(style);
+            
+            // Regenerate CV if it exists
+            if (cvContent.innerHTML.includes('class="header"')) {
+                generateCV();
+            }
+        }
+        
+        function addWorkExperience() {
+            const section = document.getElementById('workExperienceSection');
+            const newItem = document.createElement('div');
+            newItem.className = 'dynamic-section work-experience-item';
+            newItem.innerHTML = `
+                <button type="button" class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
+                <div class="form-group">
+                    <label>Job Title</label>
+                    <input type="text" name="jobTitle[]">
+                </div>
+                <div class="form-group">
+                    <label>Company Name</label>
+                    <input type="text" name="companyName[]">
+                </div>
+                <div class="form-group">
+                    <label>Duration</label>
+                    <input type="text" name="duration[]">
+                </div>
+                <div class="form-group">
+                    <label>Responsibilities (separate with semicolon)</label>
+                    <textarea name="responsibilities[]"></textarea>
+                </div>
+            `;
+            section.appendChild(newItem);
+        }
+
+        function addFreelanceProject() {
+            const section = document.getElementById('freelanceSection');
+            const newItem = document.createElement('div');
+            newItem.className = 'dynamic-section freelance-item';
+            newItem.innerHTML = `
+                <button type="button" class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
+                <div class="form-group">
+                    <label>Project Name</label>
+                    <input type="text" name="projectName[]">
+                </div>
+                <div class="form-group">
+                    <label>Technologies Used</label>
+                    <input type="text" name="techUsed[]">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" name="projectDesc[]">
+                </div>
+            `;
+            section.appendChild(newItem);
+        }
+
+        function addPersonalProject() {
+            const section = document.getElementById('personalProjectsSection');
+            const newItem = document.createElement('div');
+            newItem.className = 'dynamic-section personal-project-item';
+            newItem.innerHTML = `
+                <button type="button" class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
+                <div class="form-group">
+                    <label>Project Name</label>
+                    <input type="text" name="personalProjectName[]">
+                </div>
+                <div class="form-group">
+                    <label>Stack Used</label>
+                    <input type="text" name="stackUsed[]">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" name="personalProjectDesc[]">
+                </div>
+                <div class="form-group">
+                    <label>GitHub URL (optional)</label>
+                    <input type="url" name="projectGithub[]">
+                </div>
+            `;
+            section.appendChild(newItem);
+        }
+
+        function addCertification() {
+            const section = document.getElementById('certificationsSection');
+            const newItem = document.createElement('div');
+            newItem.className = 'dynamic-section certification-item';
+            newItem.innerHTML = `
+                <button type="button" class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
+                <div class="form-group">
+                    <label>Certification Name</label>
+                    <input type="text" name="certName[]">
+                </div>
+                <div class="form-group">
+                    <label>Issuing Organization</label>
+                    <input type="text" name="certOrg[]">
+                </div>
+                <div class="form-group">
+                    <label>Year</label>
+                    <input type="text" name="certYear[]">
+                </div>
+            `;
+            section.appendChild(newItem);
+        }
+
+        function generateCV() {
+            const form = document.getElementById('cvForm');
+            const formData = new FormData(form);
+            
+            // Get form values
+            const fullName = formData.get('fullName');
+            const location = formData.get('location');
+            const email = formData.get('email');
+            const github = formData.get('github');
+            const profileSummary = formData.get('profileSummary');
+            const frontendSkills = formData.get('frontendSkills');
+            const backendSkills = formData.get('backendSkills');
+            const databaseSkills = formData.get('databaseSkills');
+            const programmingLanguages = formData.get('programmingLanguages');
+            const otherSkills = formData.get('otherSkills');
+            const degree = formData.get('degree');
+            const university = formData.get('university');
+            const graduationYear = formData.get('graduationYear');
+            const languages = formData.get('languages');
+            const teachingInstitute = formData.get('teachingInstitute');
+            const teachingDuration = formData.get('teachingDuration');
+
+            // Get arrays
+            const jobTitles = formData.getAll('jobTitle[]');
+            const companyNames = formData.getAll('companyName[]');
+            const durations = formData.getAll('duration[]');
+            const responsibilities = formData.getAll('responsibilities[]');
+            
+            const projectNames = formData.getAll('projectName[]');
+            const techUsed = formData.getAll('techUsed[]');
+            const projectDescs = formData.getAll('projectDesc[]');
+            
+            const personalProjectNames = formData.getAll('personalProjectName[]');
+            const stackUsed = formData.getAll('stackUsed[]');
+            const personalProjectDescs = formData.getAll('personalProjectDesc[]');
+            const projectGithubs = formData.getAll('projectGithub[]');
+            
+            const certNames = formData.getAll('certName[]');
+            const certOrgs = formData.getAll('certOrg[]');
+            const certYears = formData.getAll('certYear[]');
+
+            // Generate CV HTML with ATS-friendly structure
+            let cvHTML = `
+                <div class="header" style="border-bottom: 2px solid #2c3e50; padding-bottom: 10px; margin-bottom: 15px;">
+                    <h1 style="margin-bottom: 8px; letter-spacing: 1px;">${fullName}</h1>
+                    <div class="contact-info" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;">
+                        <span>📍 ${location}</span>
+                        <span>📧 ${email}</span>
+                        ${github ? `<span>💻 ${github}</span>` : ''}
+                    </div>
+                </div>
+
+                <div class="section professional-summary">
+                    <h2 style="text-transform: uppercase; letter-spacing: 1px; font-size: 11px;">Professional Summary</h2>
+                    <p style="text-align: justify; line-height: 1.4;">${profileSummary}</p>
+                </div>
+
+                <div class="section technical-skills">
+                    <h2 style="text-transform: uppercase; letter-spacing: 1px; font-size: 11px;">Technical Skills</h2>
+                    <div class="skills-grid" style="margin-top: 8px;">
+                        <div class="skill-category" style="border-left: 3px solid #3498db; padding-left: 8px;">
+                            <strong style="color: #2c3e50;">Frontend Technologies:</strong>
+                            <span style="color: #555;">${frontendSkills}</span>
+                        </div>
+                        <div class="skill-category" style="border-left: 3px solid #3498db; padding-left: 8px;">
+                            <strong style="color: #2c3e50;">Backend Technologies:</strong>
+                            <span style="color: #555;">${backendSkills}</span>
+                        </div>
+                        <div class="skill-category" style="border-left: 3px solid #3498db; padding-left: 8px;">
+                            <strong style="color: #2c3e50;">Database Systems:</strong>
+                            <span style="color: #555;">${databaseSkills}</span>
+                        </div>
+                        <div class="skill-category" style="border-left: 3px solid #3498db; padding-left: 8px;">
+                            <strong style="color: #2c3e50;">Programming Languages:</strong>
+                            <span style="color: #555;">${programmingLanguages}</span>
+                        </div>
+                        ${otherSkills ? `<div class="skill-category" style="grid-column: span 2; border-left: 3px solid #3498db; padding-left: 8px;">
+                            <strong style="color: #2c3e50;">Additional Skills:</strong>
+                            <span style="color: #555;">${otherSkills}</span>
+                        </div>` : ''}
+                    </div>
+                </div>
+
+                <div class="section work-experience">
+                    <h2 style="text-transform: uppercase; letter-spacing: 1px; font-size: 11px;">Professional Experience</h2>`;
+
+            // Add work experiences
+            for (let i = 0; i < jobTitles.length; i++) {
+                if (jobTitles[i]) {
+                    cvHTML += `
+                    <div class="work-item" style="margin-bottom: 12px; padding: 8px; background: #fafafa; border-radius: 4px;">
+                        <h3 style="color: #2c3e50; margin-bottom: 4px;">${jobTitles[i]}</h3>
+                        <p style="color: #666; font-style: italic; margin-bottom: 6px;">
+                            <strong style="color: #34495e;">${companyNames[i]}</strong> | ${durations[i]}
+                        </p>
+                        <ul style="margin-left: 15px;">`;
+                    
+                    if (responsibilities[i]) {
+                        const respList = responsibilities[i].split(';');
+                        respList.forEach(resp => {
+                            if (resp.trim()) {
+                                cvHTML += `<li>${resp.trim()}</li>`;
+                            }
+                        });
+                    }
+                    cvHTML += `</ul></div>`;
+                }
+            }
+
+            // Add freelance projects
+            if (projectNames.some(p => p)) {
+                cvHTML += `</div><div class="section freelance-projects">
+                    <h2 style="text-transform: uppercase; letter-spacing: 1px; font-size: 11px;">Freelance Projects</h2>`;
+                
+                for (let i = 0; i < projectNames.length; i++) {
+                    if (projectNames[i]) {
+                        cvHTML += `
+                        <div class="project-item" style="margin-bottom: 8px; padding: 6px; background: #fafafa; border-radius: 3px;">
+                            <strong style="color: #2c3e50;">${projectNames[i]}</strong>
+                            <span style="color: #3498db; font-size: 9px;"> | ${techUsed[i]}</span><br>
+                            <span style="color: #555; font-size: 9px;">${projectDescs[i]}</span>
+                        </div>`;
+                    }
+                }
+            }
+
+            // Add teaching experience
+            if (teachingInstitute) {
+                cvHTML += `</div><div class="section teaching-experience">
+                    <h2 style="text-transform: uppercase; letter-spacing: 1px; font-size: 11px;">Teaching Experience</h2>
+                    <div>
+                        <h3>MERN Stack Instructor</h3>
+                        <p style="color: #666;"><strong>${teachingInstitute}</strong> — ${teachingDuration}</p>
+                        <ul>
+                            <li>Designed and delivered lessons on full-stack development</li>
+                            <li>Mentored students and reviewed code assignments</li>
+                        </ul>
+                    </div>`;
+            }
+
+            // Add personal projects
+            if (personalProjectNames.some(p => p)) {
+                cvHTML += `</div><div class="section personal-projects">
+                    <h2 style="text-transform: uppercase; letter-spacing: 1px; font-size: 11px;">Personal Projects</h2>`;
+                
+                for (let i = 0; i < personalProjectNames.length; i++) {
+                    if (personalProjectNames[i]) {
+                        cvHTML += `
+                        <div class="project-item" style="margin-bottom: 8px; padding: 6px; background: #fafafa; border-radius: 3px;">
+                            <strong style="color: #2c3e50;">${personalProjectNames[i]}</strong>
+                            <span style="color: #3498db; font-size: 9px;"> | ${stackUsed[i]}</span><br>
+                            <span style="color: #555; font-size: 9px;">${personalProjectDescs[i]}</span>
+                            ${projectGithubs[i] ? `<br><a href="${projectGithubs[i]}" style="color: #3498db; text-decoration: none; font-size: 8px;">🔗 ${projectGithubs[i]}</a>` : ''}
+                        </div>`;
+                    }
+                }
+            }
+
+            // Add education
+            cvHTML += `</div><div class="section education">
+                <h2 style="text-transform: uppercase; letter-spacing: 1px; font-size: 11px;">Education</h2>
+                <div style="padding: 8px; background: #fafafa; border-radius: 4px; border-left: 3px solid #3498db;">
+                    <strong style="color: #2c3e50; font-size: 10px;">${degree}</strong><br>
+                    <span style="color: #555; font-style: italic;">${university}</span>
+                    <span style="color: #666; font-size: 9px;"> | Graduated: ${graduationYear}</span>
+                </div>`;
+
+            // Add certifications
+            if (certNames.some(c => c)) {
+                cvHTML += `</div><div class="section certifications">
+                    <h2 style="text-transform: uppercase; letter-spacing: 1px; font-size: 11px;">Certifications</h2>`;
+                
+                for (let i = 0; i < certNames.length; i++) {
+                    if (certNames[i]) {
+                        cvHTML += `
+                        <div class="cert-item" style="margin-bottom: 6px; padding: 5px 8px; background: #f0f8ff; border-left: 2px solid #3498db;">
+                            <strong style="color: #2c3e50; font-size: 9px;">🏆 ${certNames[i]}</strong><br>
+                            <span style="color: #555; font-size: 9px;">${certOrgs[i]} | ${certYears[i]}</span>
+                        </div>`;
+                    }
+                }
+            }
+
+            // Add languages
+            if (languages) {
+                cvHTML += `</div><div class="section languages">
+                    <h2 style="text-transform: uppercase; letter-spacing: 1px; font-size: 11px;">Languages</h2>
+                    <p>${languages}</p>`;
+            }
+
+            cvHTML += `</div>`;
+
+            // Update CV preview
+            document.getElementById('cvContent').innerHTML = cvHTML;
+        }
+
+        async function savePDF() {
+            // First generate the CV
+            generateCV();
+            
+            // Wait a moment for the DOM to update
+            await new Promise(resolve => setTimeout(resolve, 100));
+            
+            const { jsPDF } = window.jspdf;
+            const cvContent = document.getElementById('cvContent');
+            
+            // Clone the content for PDF generation
+            const clonedContent = cvContent.cloneNode(true);
+            clonedContent.style.width = '794px'; // A4 width in pixels at 96dpi
+            
+            // Create a temporary container
+            const tempContainer = document.createElement('div');
+            tempContainer.style.position = 'absolute';
+            tempContainer.style.left = '-9999px';
+            tempContainer.style.top = '0';
+            tempContainer.appendChild(clonedContent);
+            document.body.appendChild(tempContainer);
+            
+            // Generate PDF with better page handling
+            html2canvas(clonedContent, {
+                scale: 2,
+                useCORS: true,
+                logging: false,
+                windowWidth: 794,
+                windowHeight: 1123 // A4 height in pixels
+            }).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                
+                const pdfWidth = 210; // A4 width in mm
+                const pdfHeight = 297; // A4 height in mm
+                const padding = 15; // padding in mm
+                
+                const contentWidth = pdfWidth - (padding * 2);
+                const contentHeight = pdfHeight - (padding * 2);
+                
+                const imgWidth = contentWidth;
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                
+                let heightLeft = imgHeight;
+                let position = 0;
+                let pageCount = 0;
+                
+                // Calculate how much content fits on each page
+                const pageContentHeight = contentHeight;
+                
+                while (heightLeft > 0) {
+                    if (pageCount > 0) {
+                        pdf.addPage();
+                    }
+                    
+                    // Calculate the source rectangle for this page
+                    const sourceY = pageCount * (pageContentHeight * canvas.width / imgWidth);
+                    const sourceHeight = Math.min(
+                        (pageContentHeight * canvas.width / imgWidth),
+                        canvas.height - sourceY
+                    );
+                    
+                    // Create a temporary canvas for this page's content
+                    const pageCanvas = document.createElement('canvas');
+                    pageCanvas.width = canvas.width;
+                    pageCanvas.height = sourceHeight;
+                    const pageCtx = pageCanvas.getContext('2d');
+                    
+                    // Draw only the content for this page
+                    pageCtx.drawImage(
+                        canvas,
+                        0, sourceY, canvas.width, sourceHeight,
+                        0, 0, canvas.width, sourceHeight
+                    );
+                    
+                    const pageImgData = pageCanvas.toDataURL('image/png');
+                    const pageImgHeight = (sourceHeight * imgWidth) / canvas.width;
+                    
+                    // Add the page content with padding
+                    pdf.addImage(
+                        pageImgData, 'PNG',
+                        padding, padding,
+                        imgWidth, pageImgHeight
+                    );
+                    
+                    heightLeft -= pageContentHeight;
+                    pageCount++;
+                }
+                
+                // Remove temporary container
+                document.body.removeChild(tempContainer);
+                
+                // Save the PDF
+                const fullName = document.getElementById('fullName').value || 'CV';
+                pdf.save(`${fullName.replace(/\s+/g, '_')}_CV.pdf`);
+            });
+        }
+
+        // Generate initial CV on page load
+        window.addEventListener('load', () => {
+            applyCustomizations();
+            generateCV();
+        });
+    </script>
+</body>
+</html>

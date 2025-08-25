@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional CV Builder</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .form-section {
+            flex: 1;
+            min-width: 350px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .cv-preview {
+            flex: 1;
+            min-width: 600px;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: #555;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .add-btn {
+            background: #4CAF50;
+            padding: 8px 16px;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .remove-btn {
+            background: #f44336;
+            padding: 6px 12px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .dynamic-section {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .dynamic-section h3 {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        /* CV Preview Styles */
+        #cvContent {
+            font-family: 'Georgia', serif;
+            line-height: 1.4;
+            color: #333;
+            font-size: 11px;
+            padding: 20px 30px;
+        }
+
+        #cvContent h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 3px;
+            margin: 15px 0 10px 0;
+            font-size: 14px;
+        }
+
+        #cvContent h3 {
+            color: #34495e;
+            margin: 10px 0 8px 0;
+            font-size: 12px;
+        }
+
+        #cvContent .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #cvContent .header h1 {
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 22px;
+        }
+
+        #cvContent .contact-info {
+            color: #7f8c8d;
+            font-size: 11px;
+        }
+
+        #cvContent .section {
+            margin-bottom: 18px;
+        }
+
+        #cvContent ul {
+            padding-left: 18px;
+        }
+
+        #cvContent li {
+            margin-bottom: 3px;
+            font-size: 11px;
+        }
+
+        #cvContent p {
+            font-size: 11px;
+        }
+
+        #cvContent strong {
+            font-size: 11px;
+        }
+
+        #cvContent span {
+            font-size: 11px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .skill-category {
+            background: #f8f9fa;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 11px;
+        }
+
+        .skill-category strong {
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .form-section {
+                display: none;
+            }
+            .cv-preview {
+                box-shadow: none;
+                padding: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .form-section, .cv-preview {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-section">
+            <h1>CV Builder Form</h1>
+            <form id="cvForm">
+                <!-- Personal Information -->
+                <div class="form-group">
+                    <label for="fullName">Full Name *</label>
+                    <input type="text" id="fullName" name="fullName" value="Abishek Bimali" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Location *</label>
+                    <input type="text" id="location" name="location" value="Kathmandu, Nepal" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" value="abi0shekbimali@gmail.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="github">GitHub URL</label>
+                    <input type="url" id="github" name="github" value="https://github.com/abishek07bimali">
+                </div>
+
+                <div class="form-group">
+                    <label for="profileSummary">Profile Summary *</label>
+                    <textarea id="profileSummary" name="profileSummary" required>Experienced Full-Stack Developer with 3+ years of expertise in building scalable web applications using modern technologies. Proficient in React, TypeScript, Node.js, and various database systems. Passionate about teaching and mentoring, with 1 year of experience instructing MERN stack development. Seeking challenging opportunities to leverage technical skills and contribute to innovative projects.</textarea>
+                </div>
+
+                <!-- Skills -->
+                <div class="form-group">
+                    <label for="frontendSkills">Frontend Skills *</label>
+                    <input type="text" id="frontendSkills" name="frontendSkills" value="React, TypeScript, HTML, CSS, JavaScript" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="backendSkills">Backend Skills *</label>
+                    <input type="text" id="backendSkills" name="backendSkills" value="Node.js, Express, REST APIs" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="databaseSkills">Database Skills *</label>
+                    <input type="text" id="databaseSkills" name="databaseSkills" value="MongoDB, PostgreSQL, MySQL, SQL" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="programmingLanguages">Programming Languages *</label>
+                    <input type="text" id="programmingLanguages" name="programmingLanguages" value="JavaScript, TypeScript, Python, Java" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="otherSkills">Other Skills</label>
+                    <input type="text" id="otherSkills" name="otherSkills" value="Git, Docker, Agile/Scrum, CI/CD">
+                </div>
+
+                <!-- Work Experience -->
+                <div id="workExperienceSection">
+                    <h3>Work Experience</h3>
+                    <div class="dynamic-section work-experience-item">
+                        <div class="form-group">
+                            <label>Job Title</label>
+                            <input type="text" name="jobTitle[]" value="Senior Software Developer">
+                        </div>
+                        <div class="form-group">
+                            <label>Company Name</label>
+                            <input type="text" name="companyName[]" value="Tech Solutions Inc.">
+                        </div>
+                        <div class="form-group">
+                            <label>Duration</label>
+                            <input type="text" name="duration[]" value="Jan 2023 - Present">
+                        </div>
+                        <div class="form-group">
+                            <label>Responsibilities (separate with semicolon)</label>
+                            <textarea name="responsibilities[]">Developed and maintained React-based web applications; Implemented RESTful APIs using Node.js and Express; Collaborated with cross-functional teams using Agile methodology; Mentored junior developers and conducted code reviews; Optimized application performance resulting in 40% faster load times</textarea>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="add-btn" onclick="addWorkExperience()">Add Work Experience</button>
+
+                <!-- Freelance Projects -->
+                <div id="freelanceSection">
+                    <h3>Freelance Projects</h3>
+                    <div class="dynamic-section freelance-item">
+                        <div class="form-group">
+                            <label>Project Name</label>
+                            <input type="text" name="projectName[]" value="E-commerce Platform">
+                        </div>
+                        <div class="form-group">
+                            <label>Technologies Used</label>
+                            <input type="text" name="techUsed[]" value="React, Node.js, MongoDB, Stripe API">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <input type="text" name="projectDesc[]" value="Built a full-featured e-commerce platform with payment integration and admin dashboard">
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="add-btn" onclick="addFreelanceProject()">Add Freelance Project</button>
+
+                <!-- Teaching Experience -->
+                <div class="form-group">
+                    <label for="teachingInstitute">Teaching Institute</label>
+                    <input type="text" id="teachingInstitute" name="teachingInstitute" value="Code Academy Nepal">
+                </div>
+
+                <div class="form-group">
+                    <label for="teachingDuration">Teaching Duration</label>
+                    <input type="text" id="teachingDuration" name="teachingDuration" value="Jan 2023 - Dec 2023">
+                </div>
+
+                <!-- Personal Projects -->
+                <div id="personalProjectsSection">
+                    <h3>Personal Projects</h3>
+                    <div class="dynamic-section personal-project-item">
+                        <div class="form-group">
+                            <label>Project Name</label>
+                            <input type="text" name="personalProjectName[]" value="Task Management System">
+                        </div>
+                        <div class="form-group">
+                            <label>Stack Used</label>
+                            <input type="text" name="stackUsed[]" value="MERN Stack, Redux, JWT">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <input type="text" name="personalProjectDesc[]" value="A collaborative task management system with real-time updates and team features">
+                        </div>
+                        <div class="form-group">
+                            <label>GitHub URL (optional)</label>
+                            <input type="url" name="projectGithub[]" value="https://github.com/abishek07bimali/task-manager">
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="add-btn" onclick="addPersonalProject()">Add Personal Project</button>
+
+                <!-- Education -->
+                <div class="form-group">
+                    <label for="degree">Degree *</label>
+                    <input type="text" id="degree" name="degree" value="Bachelor of Technology in Computer Science" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="university">University *</label>
+                    <input type="text" id="university" name="university" value="Tribhuvan University" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="graduationYear">Year of Graduation *</label>
+                    <input type="text" id="graduationYear" name="graduationYear" value="2021" required>
+                </div>
+
+                <!-- Certifications -->
+                <div id="certificationsSection">
+                    <h3>Certifications (Optional)</h3>
+                    <div class="dynamic-section certification-item">
+                        <div class="form-group">
+                            <label>Certification Name</label>
+                            <input type="text" name="certName[]" value="AWS Certified Developer">
+                        </div>
+                        <div class="form-group">
+                            <label>Issuing Organization</label>
+                            <input type="text" name="certOrg[]" value="Amazon Web Services">
+                        </div>
+                        <div class="form-group">
+                            <label>Year</label>
+                            <input type="text" name="certYear[]" value="2023">
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="add-btn" onclick="addCertification()">Add Certification</button>
+
+                <!-- Languages -->
+                <div class="form-group">
+                    <label for="languages">Languages</label>
+                    <input type="text" id="languages" name="languages" value="English (Fluent), Nepali (Native)">
+                </div>
+
+                <div class="button-group">
+                    <button type="button" onclick="generateCV()">Generate CV</button>
+                    <button type="button" onclick="savePDF()">Save as PDF</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="cv-preview">
+            <h1>CV Preview</h1>
+            <div id="cvContent">
+                <div class="header">
+                    <h1>Your Name</h1>
+                    <div class="contact-info">
+                        Location | Email | GitHub
+                    </div>
+                </div>
+                <p style="text-align: center; color: #666; padding: 20px;">
+                    Fill in the form to generate your professional CV
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function addWorkExperience() {
+            const section = document.getElementById('workExperienceSection');
+            const newItem = document.createElement('div');
+            newItem.className = 'dynamic-section work-experience-item';
+            newItem.innerHTML = `
+                <button type="button" class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
+                <div class="form-group">
+                    <label>Job Title</label>
+                    <input type="text" name="jobTitle[]">
+                </div>
+                <div class="form-group">
+                    <label>Company Name</label>
+                    <input type="text" name="companyName[]">
+                </div>
+                <div class="form-group">
+                    <label>Duration</label>
+                    <input type="text" name="duration[]">
+                </div>
+                <div class="form-group">
+                    <label>Responsibilities (separate with semicolon)</label>
+                    <textarea name="responsibilities[]"></textarea>
+                </div>
+            `;
+            section.appendChild(newItem);
+        }
+
+        function addFreelanceProject() {
+            const section = document.getElementById('freelanceSection');
+            const newItem = document.createElement('div');
+            newItem.className = 'dynamic-section freelance-item';
+            newItem.innerHTML = `
+                <button type="button" class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
+                <div class="form-group">
+                    <label>Project Name</label>
+                    <input type="text" name="projectName[]">
+                </div>
+                <div class="form-group">
+                    <label>Technologies Used</label>
+                    <input type="text" name="techUsed[]">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" name="projectDesc[]">
+                </div>
+            `;
+            section.appendChild(newItem);
+        }
+
+        function addPersonalProject() {
+            const section = document.getElementById('personalProjectsSection');
+            const newItem = document.createElement('div');
+            newItem.className = 'dynamic-section personal-project-item';
+            newItem.innerHTML = `
+                <button type="button" class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
+                <div class="form-group">
+                    <label>Project Name</label>
+                    <input type="text" name="personalProjectName[]">
+                </div>
+                <div class="form-group">
+                    <label>Stack Used</label>
+                    <input type="text" name="stackUsed[]">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" name="personalProjectDesc[]">
+                </div>
+                <div class="form-group">
+                    <label>GitHub URL (optional)</label>
+                    <input type="url" name="projectGithub[]">
+                </div>
+            `;
+            section.appendChild(newItem);
+        }
+
+        function addCertification() {
+            const section = document.getElementById('certificationsSection');
+            const newItem = document.createElement('div');
+            newItem.className = 'dynamic-section certification-item';
+            newItem.innerHTML = `
+                <button type="button" class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
+                <div class="form-group">
+                    <label>Certification Name</label>
+                    <input type="text" name="certName[]">
+                </div>
+                <div class="form-group">
+                    <label>Issuing Organization</label>
+                    <input type="text" name="certOrg[]">
+                </div>
+                <div class="form-group">
+                    <label>Year</label>
+                    <input type="text" name="certYear[]">
+                </div>
+            `;
+            section.appendChild(newItem);
+        }
+
+        function generateCV() {
+            const form = document.getElementById('cvForm');
+            const formData = new FormData(form);
+            
+            // Get form values
+            const fullName = formData.get('fullName');
+            const location = formData.get('location');
+            const email = formData.get('email');
+            const github = formData.get('github');
+            const profileSummary = formData.get('profileSummary');
+            const frontendSkills = formData.get('frontendSkills');
+            const backendSkills = formData.get('backendSkills');
+            const databaseSkills = formData.get('databaseSkills');
+            const programmingLanguages = formData.get('programmingLanguages');
+            const otherSkills = formData.get('otherSkills');
+            const degree = formData.get('degree');
+            const university = formData.get('university');
+            const graduationYear = formData.get('graduationYear');
+            const languages = formData.get('languages');
+            const teachingInstitute = formData.get('teachingInstitute');
+            const teachingDuration = formData.get('teachingDuration');
+
+            // Get arrays
+            const jobTitles = formData.getAll('jobTitle[]');
+            const companyNames = formData.getAll('companyName[]');
+            const durations = formData.getAll('duration[]');
+            const responsibilities = formData.getAll('responsibilities[]');
+            
+            const projectNames = formData.getAll('projectName[]');
+            const techUsed = formData.getAll('techUsed[]');
+            const projectDescs = formData.getAll('projectDesc[]');
+            
+            const personalProjectNames = formData.getAll('personalProjectName[]');
+            const stackUsed = formData.getAll('stackUsed[]');
+            const personalProjectDescs = formData.getAll('personalProjectDesc[]');
+            const projectGithubs = formData.getAll('projectGithub[]');
+            
+            const certNames = formData.getAll('certName[]');
+            const certOrgs = formData.getAll('certOrg[]');
+            const certYears = formData.getAll('certYear[]');
+
+            // Generate CV HTML
+            let cvHTML = `
+                <div class="header">
+                    <h1>${fullName}</h1>
+                    <div class="contact-info">
+                        ${location} | ${email} ${github ? '| ' + github : ''}
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Profile Summary</h2>
+                    <p style="font-size: 11px;">${profileSummary}</p>
+                </div>
+
+                <div class="section">
+                    <h2>Skills</h2>
+                    <div class="skills-grid">
+                        <div class="skill-category">
+                            <strong>Frontend:</strong> ${frontendSkills}
+                        </div>
+                        <div class="skill-category">
+                            <strong>Backend:</strong> ${backendSkills}
+                        </div>
+                        <div class="skill-category">
+                            <strong>Databases:</strong> ${databaseSkills}
+                        </div>
+                        <div class="skill-category">
+                            <strong>Languages:</strong> ${programmingLanguages}
+                        </div>
+                        ${otherSkills ? `<div class="skill-category" style="grid-column: span 2;">
+                            <strong>Other:</strong> ${otherSkills}
+                        </div>` : ''}
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Work Experience</h2>`;
+
+            // Add work experiences
+            for (let i = 0; i < jobTitles.length; i++) {
+                if (jobTitles[i]) {
+                    cvHTML += `
+                    <div style="margin-bottom: 15px;">
+                        <h3>${jobTitles[i]}</h3>
+                        <p style="color: #666; margin: 3px 0; font-size: 11px;"><strong>${companyNames[i]}</strong> — ${durations[i]}</p>
+                        <ul>`;
+                    
+                    if (responsibilities[i]) {
+                        const respList = responsibilities[i].split(';');
+                        respList.forEach(resp => {
+                            if (resp.trim()) {
+                                cvHTML += `<li>${resp.trim()}</li>`;
+                            }
+                        });
+                    }
+                    cvHTML += `</ul></div>`;
+                }
+            }
+
+            // Add freelance projects
+            if (projectNames.some(p => p)) {
+                cvHTML += `</div><div class="section">
+                    <h2>Freelance Projects</h2>`;
+                
+                for (let i = 0; i < projectNames.length; i++) {
+                    if (projectNames[i]) {
+                        cvHTML += `
+                        <div style="margin-bottom: 12px;">
+                            <strong style="font-size: 11px;">${projectNames[i]}</strong> — <span style="font-size: 11px;">${techUsed[i]}</span><br>
+                            <span style="color: #666; font-size: 11px;">${projectDescs[i]}</span>
+                        </div>`;
+                    }
+                }
+            }
+
+            // Add teaching experience
+            if (teachingInstitute) {
+                cvHTML += `</div><div class="section">
+                    <h2>Teaching Experience</h2>
+                    <div>
+                        <h3>MERN Stack Instructor</h3>
+                        <p style="color: #666; font-size: 11px;"><strong>${teachingInstitute}</strong> — ${teachingDuration}</p>
+                        <ul>
+                            <li>Designed and delivered comprehensive lessons on full-stack development</li>
+                            <li>Mentored students through complex coding challenges and projects</li>
+                            <li>Reviewed code assignments and provided constructive feedback</li>
+                        </ul>
+                    </div>`;
+            }
+
+            // Add personal projects
+            if (personalProjectNames.some(p => p)) {
+                cvHTML += `</div><div class="section">
+                    <h2>Personal Projects</h2>`;
+                
+                for (let i = 0; i < personalProjectNames.length; i++) {
+                    if (personalProjectNames[i]) {
+                        cvHTML += `
+                        <div style="margin-bottom: 12px;">
+                            <strong style="font-size: 11px;">${personalProjectNames[i]}</strong> — <span style="font-size: 11px;">${stackUsed[i]}</span><br>
+                            <span style="color: #666; font-size: 11px;">${personalProjectDescs[i]}</span>
+                            ${projectGithubs[i] ? `<br><a href="${projectGithubs[i]}" style="color: #3498db; text-decoration: none; font-size: 11px;">${projectGithubs[i]}</a>` : ''}
+                        </div>`;
+                    }
+                }
+            }
+
+            // Add education
+            cvHTML += `</div><div class="section">
+                <h2>Education</h2>
+                <div>
+                    <strong style="font-size: 11px;">${degree}</strong><br>
+                    <span style="font-size: 11px;">${university} — ${graduationYear}</span>
+                </div>`;
+
+            // Add certifications
+            if (certNames.some(c => c)) {
+                cvHTML += `</div><div class="section">
+                    <h2>Certifications</h2>`;
+                
+                for (let i = 0; i < certNames.length; i++) {
+                    if (certNames[i]) {
+                        cvHTML += `
+                        <div style="margin-bottom: 8px;">
+                            <strong style="font-size: 11px;">${certNames[i]}</strong> — <span style="font-size: 11px;">${certOrgs[i]} — ${certYears[i]}</span>
+                        </div>`;
+                    }
+                }
+            }
+
+            // Add languages
+            if (languages) {
+                cvHTML += `</div><div class="section">
+                    <h2>Languages</h2>
+                    <p style="font-size: 11px;">${languages}</p>`;
+            }
+
+            cvHTML += `</div>`;
+
+            // Update CV preview
+            document.getElementById('cvContent').innerHTML = cvHTML;
+        }
+
+        async function savePDF() {
+            // First generate the CV
+            generateCV();
+            
+            // Wait a moment for the DOM to update
+            await new Promise(resolve => setTimeout(resolve, 100));
+            
+            const { jsPDF } = window.jspdf;
+            const cvContent = document.getElementById('cvContent');
+            
+            // Create canvas from HTML
+            html2canvas(cvContent, {
+                scale: 2,
+                useCORS: true,
+                logging: false
+            }).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                
+                const pdfPadding = 15; // 15mm padding on each side
+                const imgWidth = 210 - (pdfPadding * 2); // A4 width minus padding
+                const pageHeight = 297; // A4 height in mm
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                let heightLeft = imgHeight;
+                let position = pdfPadding; // Start with top padding
+                
+                // Add first page with padding
+                pdf.addImage(imgData, 'PNG', pdfPadding, position, imgWidth, imgHeight);
+                heightLeft -= (pageHeight - pdfPadding * 2);
+                
+                // Add additional pages if needed
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight + pdfPadding;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', pdfPadding, position, imgWidth, imgHeight);
+                    heightLeft -= (pageHeight - pdfPadding * 2);
+                }
+                
+                // Save the PDF
+                const fullName = document.getElementById('fullName').value || 'CV';
+                pdf.save(`${fullName.replace(/\s+/g, '_')}_CV.pdf`);
+            });
+        }
+
+        // Generate initial CV on page load
+        window.addEventListener('load', () => {
+            generateCV();
+        });
+    </script>
+</body>
+</html>
