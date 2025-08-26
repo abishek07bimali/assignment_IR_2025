@@ -12,13 +12,13 @@ The project consists of three main components:
 
 1. **Web Crawler** - Python-based scraper for harvesting publication data
 2. **Search Backend** - FastAPI server with TF-IDF search algorithm
-3. **Search Frontend** - React-based user interface
+3. **Search Frontend** - React with vite-based user interface
 
 ## Working Mechanism
 
 ### 1. Data Collection Phase
 
-#### Web Crawler (`crawler.ipynb` / `ass2.py`)
+#### Web Crawler (`crawler.ipynb` / `assignment.py`)
 The crawler systematically extracts publication data from the university portal:
 
 - **Target URL**: Coventry University Pure Portal (School of Economics, Finance and Accounting)
@@ -67,15 +67,6 @@ The crawler systematically extracts publication data from the university portal:
    7. Rank and return top results
    ```
 
-**API Endpoints:**
-- `GET /` - API information
-- `GET /search` - Main search endpoint with filters
-- `GET /search/advanced` - Field-specific search
-- `GET /stats` - Database statistics
-- `GET /publications` - Paginated publication list
-- `GET /authors` - List all authors
-- `GET /trending` - Trending research topics
-- `GET /reindex` - Rebuild search indices
 
 ### 3. Search Frontend
 
@@ -97,32 +88,6 @@ The crawler systematically extracts publication data from the university portal:
 5. Frontend displays results with metadata
 6. Users can click through to original publications
 
-## Technical Implementation
-
-### Search Relevance Scoring
-
-The system uses a hybrid scoring approach:
-
-1. **TF-IDF Score** (Primary)
-   - Measures term frequency and inverse document frequency
-   - Gives higher weight to rare, distinctive terms
-   - Title and author fields weighted 2x for importance
-
-2. **Keyword Boost** (Secondary)
-   - Exact keyword matches receive 0.1 boost per match
-   - Ensures relevant documents aren't missed
-
-3. **Combined Score**
-   ```python
-   final_score = tfidf_score + keyword_boost
-   ```
-
-### Performance Optimizations
-
-- **Inverted Indices**: O(1) lookup for author/year filters
-- **Keyword Index**: Fast keyword-based retrieval
-- **Vector Caching**: Pre-computed TF-IDF vectors
-- **Lazy Loading**: Pagination for large result sets
 
 ## Installation & Usage
 
@@ -140,7 +105,8 @@ npm install
 
 1. **Start Backend Server**
    ```bash
-   python3 search_engine_backend.py
+   python -m uvicorn search_engine_backend:app --host 0.0.0.0 --port 8000
+
    # Server runs on http://localhost:8000
    ```
 
@@ -151,54 +117,13 @@ npm install
    # Frontend runs on http://localhost:5173
    ```
 
-3. **Quick Start Script**
+3. **Quick Start Script for linux**
    ```bash
    ./run_search_engine.sh
    ```
 
-## Data Statistics
 
-- **Total Publications**: 770
-- **Unique Authors**: 795
-- **Year Range**: 1992-2025
-- **Indexed Keywords**: 9,713
-- **Average Search Time**: ~2ms
 
-## API Usage Examples
-
-### Basic Search
-```bash
-curl "http://localhost:8000/search?q=machine%20learning&limit=10"
-```
-
-### Filtered Search
-```bash
-curl "http://localhost:8000/search?q=finance&author=Hassan&year=2024"
-```
-
-### Advanced Search
-```bash
-curl "http://localhost:8000/search/advanced?title=blockchain&year_from=2020"
-```
-
-## Project Structure
-```
-crawler/
-├── data/
-│   ├── publications.json       # Main publication dataset
-│   └── publications_links.json # Publication URLs
-├── google-crawl-softwarica/    # React frontend
-│   ├── src/
-│   │   ├── SearchApp.jsx      # Main search component
-│   │   └── SearchApp.css      # Styling
-│   └── package.json
-├── search_engine_backend.py    # FastAPI search server
-├── crawler.ipynb               # Jupyter notebook crawler
-├── ass2.py                     # Python crawler script
-└── README.md                   # This file
-```
-
-## Key Algorithms
 
 ### TF-IDF (Term Frequency-Inverse Document Frequency)
 - Measures importance of a term in a document relative to a collection
@@ -210,30 +135,7 @@ crawler/
 - Range: 0 (no similarity) to 1 (identical)
 - Formula: `similarity = cos(θ) = (A·B)/(||A||×||B||)`
 
-## Future Enhancements
-
-1. **Machine Learning Integration**
-   - Neural network-based semantic search
-   - Query expansion using word embeddings
-   - Learning-to-rank algorithms
-
-2. **Advanced Features**
-   - Citation network analysis
-   - Co-author collaboration graphs
-   - Research trend predictions
-   - Export functionality (CSV, BibTeX)
-
-3. **Performance Improvements**
-   - Elasticsearch integration
-   - Redis caching layer
-   - Distributed crawling
-
-## License
-
-This project is developed for academic purposes at Coventry University.
-
 ---
 
 **Developed by:** Abishek Bimali  
-**Institution:** Coventry University  
-**Department:** School of Economics, Finance and Accounting
+**Institution:** Coventry University

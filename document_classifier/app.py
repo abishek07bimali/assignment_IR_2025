@@ -13,8 +13,7 @@ def display_menu():
     print("\nOptions:")
     print("1. Classify a document")
     print("2. Test with predefined examples")
-    print("3. Show model performance")
-    print("4. Exit")
+    print("3. Exit")
     print("-"*40)
 
 def classify_document(classifier):
@@ -110,30 +109,6 @@ def test_examples(classifier):
                 confidence = result['probabilities'][result['prediction']]
                 print(f"  {model_name:20} -> {result['prediction']:10} ({confidence:.1%})")
 
-def show_performance(classifier):
-    print("\n" + "="*50)
-    print("MODEL PERFORMANCE METRICS")
-    print("="*50)
-    
-    print("\nDataset Statistics:")
-    print("- Total documents: 105")
-    print("- Categories: 3 (Politics, Business, Health)")
-    print("- Documents per category: 35")
-    print("- Train/Test split: 80/20")
-    
-    print("\nModel Accuracy:")
-    print("- Naive Bayes: 95.24%")
-    print("- Logistic Regression: 95.24%")
-    
-    print("\nCross-Validation Scores (5-fold):")
-    print("- Naive Bayes: 89.52% (+/- 9.33%)")
-    print("- Logistic Regression: 89.52% (+/- 16.39%)")
-    
-    print("\nKey Features:")
-    print("- Text preprocessing with NLTK")
-    print("- TF-IDF vectorization with bigrams")
-    print("- Stopword removal and lemmatization")
-    print("- Maximum 5000 features")
 
 def main():
     classifier = DocumentClassifier()
@@ -160,8 +135,6 @@ def main():
         elif choice == "2":
             test_examples(classifier)
         elif choice == "3":
-            show_performance(classifier)
-        elif choice == "4":
             print("\nThank you for using the Document Classification System!")
             break
         else:
