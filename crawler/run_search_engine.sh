@@ -8,7 +8,7 @@ pip install -r requirements.txt
 
 echo ""
 echo "🔧 Starting FastAPI backend server..."
-python3 -m uvicorn search_engine_backend:app --host 0.0.0.0 --port 8000 &
+python3 -m uvicorn academic_search_engine:app --host 0.0.0.0 --port 8000 &
 BACKEND_PID=$!
 
 echo "Backend started with PID: $BACKEND_PID"

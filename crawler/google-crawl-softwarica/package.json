@@ -1,7 +1,9 @@
 {
-  "name": "google-crawl-softwarica",
+  "name": "academic-research-explorer",
   "private": true,
-  "version": "0.0.0",
+  "version": "2.0.0",
+  "author": "Abishek Bimali",
+  "description": "Modern academic publication search interface",
   "type": "module",
   "scripts": {
     "dev": "vite",

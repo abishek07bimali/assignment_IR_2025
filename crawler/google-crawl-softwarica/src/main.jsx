@@ -1,10 +1,11 @@
-import SearchApp from './SearchApp'
+// Author: Abishek Bimali
+import ModernSearchApp from './ModernSearchApp'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './SearchApp.css'
+import './ModernSearchApp.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <SearchApp />
+    <ModernSearchApp />
   </React.StrictMode>,
 )
