@@ -116,7 +116,7 @@ class TextClassificationEngine:
         self.vectorizer = None
         self.classifier = None
         self.categories = []
-        self.model_type = 'nb'  # Default to Naive Bayes
+        self.model_type = 'lr'  # Default to Naive Bayes
         
     def load_dataset(self, file_path: str = 'data/documents.json') -> Tuple[List[str], List[str]]:
         """Load training dataset"""
